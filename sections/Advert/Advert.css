@@ -1,0 +1,115 @@
+.advert-container{
+    background-color: #305CDE;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 5rem;
+    border-radius: 3rem;
+    color: white;
+}
+.advert-text{
+    flex-basis: 50%;
+}
+.advert-text h2{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+.advert-text p{
+    font-size: 1rem;
+    margin: 1rem 0;
+}
+.advert-image{
+    flex-basis: 40%;
+    text-align: end;
+}
+.advert-image img {
+    max-width: 300px;
+    width: 100%;
+}
+.contact-btn{
+  color: #305CDE;
+  border: none;
+  border-radius: 10px;
+  padding: .5rem 2rem;
+  background-color: white;
+  font-size: 1.2rem;
+  margin: 2rem 0;
+  transition: .5s;
+}
+.contact-btn:hover{
+    transform: scale(1.1);
+    transition: .5s ease-in-out;
+}
+
+
+@media (max-width: 1200px) {
+  .advert-container {
+    padding: 2rem 3rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .advert-container {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .advert-text, .advert-image {
+    flex-basis: 100%;
+  }
+
+  .advert-image {
+    text-align: center;
+  }
+
+  .advert-text h2 {
+    font-size: 1.8rem;
+  }
+
+  .advert-text p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .advert-container {
+    padding: 2rem;
+    border-radius: 2rem;
+  }
+
+  .advert-text h2 {
+    font-size: 1.6rem;
+  }
+
+  .contact-btn {
+    font-size: 1.1rem;
+    padding: 0.5rem 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .advert-container {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .advert-text h2 {
+    font-size: 1.4rem;
+  }
+
+  .advert-text p {
+    font-size: 0.95rem;
+  }
+
+  .advert-image img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .contact-btn {
+    font-size: 1rem;
+    padding: 0.5rem 1.2rem;
+    width: 100%;
+  }
+}
