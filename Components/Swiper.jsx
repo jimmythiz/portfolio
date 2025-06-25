@@ -8,6 +8,7 @@ const Carousel = ({ items, visibleCount = 1 }) => {
   const [clonedItems, setClonedItems] = useState([]);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [dynamicVisibleCount, setDynamicVisibleCount] = useState(visibleCount);
+    const [isHovered, setIsHovered] = useState(false);
 
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -62,8 +63,15 @@ const Carousel = ({ items, visibleCount = 1 }) => {
 
     container.scrollTo({ left: slideWidth() * index, behavior: 'smooth' });
   }, [index, items.length, dynamicVisibleCount]);
+ useEffect(() => {
+    if (isHovered) return; 
+    const interval = setInterval(() => {
+      setIndex(prev => prev + 1);
+    }, 6000); 
+    return () => clearInterval(interval);
+  }, [isHovered]);
 
-  const startDrag = (e) => {
+  const startDrag = (e) => { 
     isDragging.current = true;
     startX.current = (e.pageX || e.touches[0].pageX) - containerRef.current.offsetLeft;
     scrollLeft.current = containerRef.current.scrollLeft;
