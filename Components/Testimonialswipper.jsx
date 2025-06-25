@@ -108,12 +108,10 @@ const Testimonialswipper = ({ items }) => {
         ref={containerRef}
         className="carousel"
         onMouseDown={startDrag}
-        onTouchStart={startDrag}
         onMouseMove={onDrag}
-        onTouchMove={onDrag}
         onMouseUp={stopDrag}
         onMouseLeave={stopDrag}
-        onTouchEnd={stopDrag}
+        
         style={{
           display: 'flex',
           gap: '20px',
