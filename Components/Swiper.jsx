@@ -6,50 +6,43 @@ const Carousel = ({ items, visibleCount = 1 }) => {
   const containerRef = useRef(null);
   const [index, setIndex] = useState(visibleCount);
   const [clonedItems, setClonedItems] = useState([]);
-  const [isHovered, setIsHovered] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [dynamicVisibleCount, setDynamicVisibleCount] = useState(visibleCount);
 
-  // Drag support
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
-  const slideWidth = () => containerRef.current?.offsetWidth / visibleCount;
+  const slideWidth = () => containerRef.current?.offsetWidth / dynamicVisibleCount;
 
-  // Update screen size on resize
   useEffect(() => {
     const handleResize = () => setScreenWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Responsive visibleCount
   useEffect(() => {
-    if (screenWidth < 500) setVisibleCount(1);
-    else if (screenWidth < 768) setVisibleCount(1);
-    else if (screenWidth < 1024) setVisibleCount(1);
-    else if (screenWidth < 1280) setVisibleCount(1);
-    else setVisibleCount(1);
+    if (screenWidth < 500) setDynamicVisibleCount(1);
+    else if (screenWidth < 768) setDynamicVisibleCount(1);
+    else if (screenWidth < 1024) setDynamicVisibleCount(1);
+    else if (screenWidth < 1280) setDynamicVisibleCount(1);
+    else setDynamicVisibleCount(1);
   }, [screenWidth]);
 
-  const [visibleCountState, setVisibleCount] = useState(visibleCount);
-
-  // Clone items for seamless loop
   useEffect(() => {
-    const cloneHead = items.slice(0, visibleCountState);
-    const cloneTail = items.slice(-visibleCountState);
+    const cloneHead = items.slice(0, dynamicVisibleCount);
+    const cloneTail = items.slice(-dynamicVisibleCount);
     setClonedItems([...cloneTail, ...items, ...cloneHead]);
-    setIndex(visibleCountState);
-  }, [items, visibleCountState]);
+    setIndex(dynamicVisibleCount);
+  }, [items, dynamicVisibleCount]);
 
-  // Scroll to the current index
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const total = items.length;
-    const realStartIndex = visibleCountState;
-    const realEndIndex = total + visibleCountState;
+    const realStartIndex = dynamicVisibleCount;
+    const realEndIndex = total + dynamicVisibleCount;
 
     if (index < realStartIndex) {
       setTimeout(() => {
@@ -61,25 +54,15 @@ const Carousel = ({ items, visibleCount = 1 }) => {
 
     if (index >= realEndIndex) {
       setTimeout(() => {
-        container.scrollTo({ left: slideWidth() * visibleCountState, behavior: 'auto' });
-        setIndex(visibleCountState);
+        container.scrollTo({ left: slideWidth() * dynamicVisibleCount, behavior: 'auto' });
+        setIndex(dynamicVisibleCount);
       }, 300);
       return;
     }
 
     container.scrollTo({ left: slideWidth() * index, behavior: 'smooth' });
-  }, [index, items.length, visibleCountState]);
+  }, [index, items.length, dynamicVisibleCount]);
 
-  // Auto-scroll
-  useEffect(() => {
-    if (isHovered) return;
-    const interval = setInterval(() => {
-      setIndex(prev => prev + 1);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [isHovered]);
-
-  // Drag handlers
   const startDrag = (e) => {
     isDragging.current = true;
     startX.current = (e.pageX || e.touches[0].pageX) - containerRef.current.offsetLeft;
@@ -105,18 +88,16 @@ const Carousel = ({ items, visibleCount = 1 }) => {
       style={{
         position: 'relative',
         overflow: 'hidden',
-
-        width: screenWidth < 390 ? '98%' :
-                screenWidth < 500 ? '95%' :
-               screenWidth < 768 ? '90%' :
-               screenWidth < 1024 ? '70%' :
-               screenWidth < 1200 ? "70%" :
-               screenWidth < 1280 ? '50%' : '45%',
+        width:
+          screenWidth < 390 ? '98%' :
+          screenWidth < 500 ? '95%' :
+          screenWidth < 768 ? '90%' :
+          screenWidth < 1024 ? '70%' :
+          screenWidth < 1200 ? "70%" :
+          screenWidth < 1280 ? '50%' : '45%',
         margin: 'auto',
-        padding: '2rem'
+        padding: '2rem',
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div
         ref={containerRef}
@@ -142,7 +123,7 @@ const Carousel = ({ items, visibleCount = 1 }) => {
             className="cardss"
             key={i}
             style={{
-              flex: `0 0 ${100 / visibleCountState}%`,
+              flex: `0 0 ${100 / dynamicVisibleCount}%`,
               scrollSnapAlign: 'start',
               borderRadius: 10,
               userSelect: 'none',
@@ -174,7 +155,7 @@ const Carousel = ({ items, visibleCount = 1 }) => {
           zIndex: 1,
           cursor: 'pointer',
           color: '#305CDE',
-          fontSize: 30
+          fontSize: 30,
         }}
       />
       <MdArrowForwardIos
@@ -187,7 +168,7 @@ const Carousel = ({ items, visibleCount = 1 }) => {
           zIndex: 1,
           cursor: 'pointer',
           color: '#305CDE',
-          fontSize: 30
+          fontSize: 30,
         }}
       />
 
@@ -195,15 +176,15 @@ const Carousel = ({ items, visibleCount = 1 }) => {
         {items.map((_, i) => (
           <span
             key={i}
-            onClick={() => setIndex(i + visibleCountState)}
+            onClick={() => setIndex(i + dynamicVisibleCount)}
             style={{
               display: 'inline-block',
               width: 10,
               height: 10,
               margin: '0 5px',
               borderRadius: '50%',
-              background: (index - visibleCountState) % items.length === i ? '#305CDE' : '#ccc',
-              cursor: 'pointer'
+              background: (index - dynamicVisibleCount) % items.length === i ? '#305CDE' : '#ccc',
+              cursor: 'pointer',
             }}
           />
         ))}

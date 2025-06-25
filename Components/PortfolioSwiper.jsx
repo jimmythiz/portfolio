@@ -6,34 +6,25 @@ const PortfolioSwiper = ({ items }) => {
   const containerRef = useRef(null);
   const [index, setIndex] = useState(1);
   const [clonedItems, setClonedItems] = useState([]);
-  const [isHovered, setIsHovered] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [visibleCount, setVisibleCount] = useState(1);
 
-  // Drag support refs
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
   const slideWidth = () => containerRef.current?.offsetWidth / visibleCount;
 
-  // Update screen size on resize
   useEffect(() => {
     const handleResize = () => setScreenWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Responsive visibleCount based on screen width
   useEffect(() => {
-    if (screenWidth < 500) setVisibleCount(1);
-    else if (screenWidth < 768) setVisibleCount(1);
-    else if (screenWidth < 1024) setVisibleCount(1);
-    else if (screenWidth < 1280) setVisibleCount(1);
-    else setVisibleCount(1);
+    setVisibleCount(1); // You can increase this for desktop view
   }, [screenWidth]);
 
-  // Clone items for infinite loop
   useEffect(() => {
     const cloneHead = items.slice(0, visibleCount);
     const cloneTail = items.slice(-visibleCount);
@@ -41,7 +32,6 @@ const PortfolioSwiper = ({ items }) => {
     setIndex(visibleCount);
   }, [items, visibleCount]);
 
-  // Scroll to current index
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -69,16 +59,6 @@ const PortfolioSwiper = ({ items }) => {
     container.scrollTo({ left: slideWidth() * index, behavior: 'smooth' });
   }, [index, items.length, visibleCount]);
 
-  // Auto scroll when not hovered
-  useEffect(() => {
-    if (isHovered) return;
-    const interval = setInterval(() => {
-      setIndex(prev => prev + 1);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [isHovered]);
-
-  // Drag handlers
   const startDrag = (e) => {
     isDragging.current = true;
     startX.current = (e.pageX || e.touches[0].pageX) - containerRef.current.offsetLeft;
@@ -104,17 +84,16 @@ const PortfolioSwiper = ({ items }) => {
       style={{
         position: 'relative',
         overflow: 'hidden',
-        width: screenWidth < 390 ? '98%' :
-                screenWidth < 500 ? '99%' :
-               screenWidth < 768 ? '99%' :
-               screenWidth < 1024 ? '70%' :
-               screenWidth < 1200 ? "70%" :
-               screenWidth < 1280 ? '70%' : '75%',
+        width:
+          screenWidth < 390 ? '98%' :
+          screenWidth < 500 ? '99%' :
+          screenWidth < 768 ? '99%' :
+          screenWidth < 1024 ? '70%' :
+          screenWidth < 1200 ? "70%" :
+          screenWidth < 1280 ? '70%' : '75%',
         margin: 'auto',
         padding: '2rem',
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div
         ref={containerRef}
@@ -160,7 +139,7 @@ const PortfolioSwiper = ({ items }) => {
       `}</style>
 
       <IoChevronBackOutline
-      className='arrow-back'
+        className='arrow-back'
         onClick={prev}
         style={{
           position: 'absolute',
@@ -174,7 +153,7 @@ const PortfolioSwiper = ({ items }) => {
         }}
       />
       <MdArrowForwardIos
-      className='arrow-front'
+        className='arrow-front'
         onClick={next}
         style={{
           position: 'absolute',
