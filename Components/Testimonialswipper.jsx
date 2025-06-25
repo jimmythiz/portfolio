@@ -6,7 +6,6 @@ const Testimonialswipper = ({ items }) => {
   const containerRef = useRef(null);
   const [index, setIndex] = useState(1);
   const [clonedItems, setClonedItems] = useState([]);
-  const [isHovered, setIsHovered] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [visibleCount, setVisibleCount] = useState(1);
 
@@ -14,6 +13,7 @@ const Testimonialswipper = ({ items }) => {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
+  const startY = useRef(0);
 
   const slideWidth = () => containerRef.current?.offsetWidth / visibleCount;
 
@@ -61,25 +61,25 @@ const Testimonialswipper = ({ items }) => {
     container.scrollTo({ left: slideWidth() * index, behavior: 'smooth' });
   }, [index, items.length, visibleCount]);
 
-  useEffect(() => {
-    if (isHovered) return;
-    const interval = setInterval(() => {
-      setIndex(prev => prev + 1);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [isHovered]);
-
   const startDrag = (e) => {
     isDragging.current = true;
     startX.current = (e.pageX || e.touches[0].pageX) - containerRef.current.offsetLeft;
+    startY.current = (e.pageY || e.touches[0].pageY);
     scrollLeft.current = containerRef.current.scrollLeft;
   };
 
   const onDrag = (e) => {
     if (!isDragging.current) return;
+
     const x = (e.pageX || e.touches[0].pageX) - containerRef.current.offsetLeft;
-    const walk = x - startX.current;
-    containerRef.current.scrollLeft = scrollLeft.current - walk;
+    const y = (e.pageY || e.touches[0].pageY);
+    const dx = x - startX.current;
+    const dy = y - startY.current;
+
+    if (Math.abs(dx) > Math.abs(dy)) {
+      e.preventDefault(); // Only prevent vertical scroll if horizontal drag dominates
+      containerRef.current.scrollLeft = scrollLeft.current - dx;
+    }
   };
 
   const stopDrag = () => {
@@ -95,16 +95,14 @@ const Testimonialswipper = ({ items }) => {
         position: 'relative',
         overflow: 'hidden',
         width: screenWidth < 390 ? '98%' :
-                screenWidth < 500 ? '95%' :
+               screenWidth < 500 ? '95%' :
                screenWidth < 768 ? '90%' :
                screenWidth < 1024 ? '70%' :
-               screenWidth < 1200 ? "70%" :
+               screenWidth < 1200 ? '70%' :
                screenWidth < 1280 ? '50%' : '45%',
         margin: 'auto',
         padding: '.2rem',
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div
         ref={containerRef}
@@ -125,6 +123,7 @@ const Testimonialswipper = ({ items }) => {
           msOverflowStyle: 'none',
           width: '100%',
           justifyContent: 'flex-start',
+          touchAction: 'pan-y',
         }}
       >
         {clonedItems.map((item, i) => (
@@ -147,7 +146,6 @@ const Testimonialswipper = ({ items }) => {
         ))}
       </div>
 
-      {/* Hide scrollbar */}
       <style>{`
         .carousel::-webkit-scrollbar {
           display: none;

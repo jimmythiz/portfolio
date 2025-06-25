@@ -41,10 +41,6 @@
    transition: 1s;
 }
 
-.portfolio-carousel:hover{
-  transition: 1s ease;
-  transform: scale(1.1);
-}
 .portfolio-text {
   flex-basis: 80%;
   text-align: left;
@@ -77,12 +73,6 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-.visit-btn:hover,
-.visit-btn:focus {
-  background-color: #254bb5;
-  outline: none;
 }
 
 .site-description {
