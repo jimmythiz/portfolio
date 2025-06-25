@@ -50,8 +50,8 @@ const Services = () => {
 
   return (
     <Element name="services" className={darkmode ? "services" : "services services-dark"}>
-      <div className="contact-section-2">
-        <motion.div {...fadeInUp} className={darkmode ? "main-services": "main-services main-services-dark"}>
+      <div className="contact-section-11">
+        <motion.div {...fadeInUp} className={darkmode ? "main-servicesss": "main-servicesss main-services-dark"}>
           <h1 className="services-title">Services</h1>
           <SwiperComponent items={cards} />
         </motion.div>
