@@ -71,7 +71,7 @@ const Carousel = ({ items, visibleCount = 1 }) => {
     return () => clearInterval(interval);
   }, [isHovered]);
 
-  const startDrag = (e) => {
+  const startDrag = (e) => { 
     isDragging.current = true;
     startX.current = (e.pageX || e.touches[0].pageX) - containerRef.current.offsetLeft;
     scrollLeft.current = containerRef.current.scrollLeft;
