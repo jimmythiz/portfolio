@@ -8,6 +8,7 @@ const PortfolioSwiper = ({ items }) => {
   const [clonedItems, setClonedItems] = useState([]);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [visibleCount, setVisibleCount] = useState(1);
+  const [isHovered, setIsHovered] = useState(false); 
 
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -58,6 +59,14 @@ const PortfolioSwiper = ({ items }) => {
 
     container.scrollTo({ left: slideWidth() * index, behavior: 'smooth' });
   }, [index, items.length, visibleCount]);
+
+   useEffect(() => {
+    if (isHovered) return; // pause auto-scroll when hovered
+    const interval = setInterval(() => {
+      setIndex(prev => prev + 1);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [isHovered]);
 
   const startDrag = (e) => {
     isDragging.current = true;

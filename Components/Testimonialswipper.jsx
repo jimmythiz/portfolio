@@ -34,6 +34,13 @@ const Testimonialswipper = ({ items }) => {
     setIndex(visibleCount);
   }, [items, visibleCount]);
 
+useEffect(() => {
+  const interval = setInterval(() => {
+    setIndex(prev => prev + 1);
+  }, 5000); // scrolls every 3 seconds
+  return () => clearInterval(interval); // cleanup on unmount
+}, []);
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
