@@ -4,19 +4,7 @@
   padding: 0;
   font-family: "Poppins", sans-serif;
   font-style: normal;
-  overflow-x: hidden;
-}
-
-/* For most browsers */
-html, body {
-  overflow: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE 10+ */
-}
-
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  /* overflow-x: hidden; */
 }
 
 .app-div{
@@ -36,6 +24,6 @@ body::-webkit-scrollbar {
 }
 .app-dark {
   background-color: black;
-  overflow: visible;
+  overflow-y: visible;
   color: white;
 }

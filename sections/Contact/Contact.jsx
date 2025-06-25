@@ -53,7 +53,9 @@ const Contact = () => {
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.3 }}
     transition={{ duration: 0.8, ease: 'easeOut' }}
+    className="contact-level"
   >
+      <div style={{ display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}>
       <h1 className="contact-title">Contact Me</h1>
       <div className="contact-main">
             <div className="contact-section-1">
@@ -79,6 +81,8 @@ const Contact = () => {
                     </div>
                 </div>
             </div>
+      </div>
+      </div>
             <div className="contact-section-2">
                   <form ref={formRef} onSubmit={sendEmail}>
                         <div className="form-1">
@@ -94,7 +98,7 @@ const Contact = () => {
                         <button className="cntc-btn" type="submit" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><FaPaperPlane />Send Message</button>
                   </form>
             </div>
-      </div>
+      
       <ToastContainer position="top-right" autoClose={3000} theme={darkmode ? "dark" : "light"} />
 </motion.div>
     </Element>

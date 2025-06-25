@@ -6,12 +6,14 @@
   padding: 1rem 6rem 0.5rem 6rem;
   background-color: white;
   transition: background-color 0.3s ease;
+  width: 100vw;
 }
 .contact-section-22{
   display: flex;
   justify-content: center;
   align-items: center;
   margin: auto;
+  width: 100vw;
 }
 .portfolio-dark {
   background-color: #000;

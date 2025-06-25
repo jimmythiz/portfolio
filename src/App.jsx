@@ -18,13 +18,11 @@ function App() {
   return (
     <div className={darkmode ? "app" : "app app-dark"}>
       <Navbar/>
-      
       <Home/>
       <About/>
       <Skills/>
       <Services/>
       <Portfolio/>
-      
       <Contact/>
       <Footer/>
     </div>

@@ -11,8 +11,8 @@ const Portfoliocards = ({ title, imageUrl, description, link }) => {
         <img src={imageUrl} alt={title} />
       </div>
       <div className='portfolio-text'>
-        <h3 className={darkMode ? 'site-title' : 'site-title dark-text'}>{title}</h3>
-        <p className={darkMode ? 'site-description' : 'site-description dark-text'}>{description}</p>
+        <h3 className={darkMode ? 'site-title' : 'site-title dark-text'} style={{textAlign:"center"}}>{title}</h3>
+        <p className={darkMode ? 'site-description' : 'site-description dark-text'}style={{textAlign:"center"}}>{description}</p>
         <a href={link} target='_blank' rel='noopener noreferrer'>
           <button className='visit-btn' style={{textAlign:"center"}}>
             Visit <FaPaperPlane />

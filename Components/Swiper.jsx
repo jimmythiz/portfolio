@@ -145,7 +145,7 @@ const Carousel = ({ items, visibleCount = 1 }) => {
         `}
       </style>
 
-      <IoChevronBackOutline
+      {/* <IoChevronBackOutline
         onClick={prev}
         style={{
           position: 'absolute',
@@ -170,7 +170,7 @@ const Carousel = ({ items, visibleCount = 1 }) => {
           color: '#305CDE',
           fontSize: 30,
         }}
-      />
+      /> */}
 
       <div style={{ textAlign: 'center', marginTop: 10 }}>
         {items.map((_, i) => (
