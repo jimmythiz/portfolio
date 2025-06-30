@@ -23,6 +23,7 @@ const About = () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/get-cv`);
         setCvUrl(res.data.cvUrl);
+        console.log(cvUrl)
       } catch (err) {
         console.error("Could not fetch CV");
       }
@@ -58,12 +59,18 @@ const About = () => {
                       <p className={darkmode ? "light-text" : "dark-text"}>Happy Clients</p>
                     </div>
                 </div>
-                <button className="download-btn">
-                  <a href={cvUrl} download target="_blank" rel="noopener noreferrer">
-                  <FaDownload style={{ marginRight: "8px" }} />
-                  Download Resume
-                  </a>
-                </button>
+                <a
+                style={{textDecoration:"none"}}
+  className="download-btn"
+  href={cvUrl}
+  download
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <FaDownload style={{ marginRight: "8px" }} />
+  Download Resume
+</a>
+
             </div>
         </motion.div>
         </div>
