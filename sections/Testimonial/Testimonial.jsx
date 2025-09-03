@@ -48,7 +48,14 @@ const Testimonial = () => {
     transition={{ duration: 0.8, ease: 'easeOut' }}
    className={darkmode ? "testimonial" : "testimonial darkmodetext"}>
         <h1 className="text-title">Testimonial</h1>
-        <Testimonialswipper items={cards}/>
+        { usercomments.length > 0 ? 
+          <Testimonialswipper items={cards}/> : 
+          <div style={{margin:"1rem 1rem 2rem 1rem", textAlign:"center"}}>
+          <p>Hello, if you are seeing this message, it's probably because i am hosting the backend services of this page with a server that spins down when inactive.</p>
+          <p>The Good new is, now that you are here, you have just spinned it back up and it should be back in less than 30 seconds !</p>
+          <p>Kindly refresh in about 20seconds time to view the actual content. Thank you !</p>
+          </div>
+          }
         
     </motion.div>
   )

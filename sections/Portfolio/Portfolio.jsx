@@ -57,7 +57,15 @@ const Portfolio = () => {
     <Element name='portfolio' className={darkmode ?'portfolio' : "portfolio portfolio-dark"}>
       
       <h1 className={darkmode ? 'portfolio-title' : "portfolio-title dark-text"}>Portfolio</h1>
-      <PortfolioSwipper items={cards}/>
+      { portfoliostuffs.length > 0 ? 
+          <PortfolioSwipper items={cards}/> : 
+          <div style={{margin:"1rem 1rem 2rem 1rem", textAlign:"center"}}>
+          <p>Hello, if you are seeing this message, it's probably because i am hosting the backend services of this page with a server that spins down when inactive.</p>
+          <p>The Good new is, now that you are here, you have just spinned it back up and it should be back in less than 30 seconds !</p>
+          <p>Kindly refresh in about 20seconds time to view the actual content. Thank you !</p>
+          </div>
+          }
+      
         <Advert/>
       <Testimonial/>
     </Element>
