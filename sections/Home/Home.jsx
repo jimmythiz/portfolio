@@ -10,6 +10,7 @@ import {
   FaInstagram,
   FaTiktok,
   FaPaperPlane,
+  FaWhatsapp 
 } from "react-icons/fa";
 
 import { motion } from 'framer-motion';
@@ -56,6 +57,13 @@ const Home = () => {
         >
           <FaInstagram size={24} color="#305CDE" />
         </a>
+        <a
+          href="https://wa.me/2348154073246"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaWhatsapp  size={24} color="#305CDE" />
+        </a>
       </div>
       <div className="home-right">
         <div className="home-text">
@@ -64,6 +72,9 @@ const Home = () => {
           <p className={darkmode ? "light-text" : "dark-text"}>
             High level experience in web design and development knowledge
             producing quality work
+          </p>
+          <p className={darkmode ? "light-text" : "dark-text"}>
+            Expertise with modern languages like HTML, CSS, Javacript, React Js, PHP, Laravel, Node Js, Express Js and Database system like Mongo DB, MySQL and PostgreSQL.
           </p>
           <Link to="contact" smooth={true} duration={1000} spy={true} activeClass="active" className="nav-link" offset={-70} >
           <button className="home-btn">
